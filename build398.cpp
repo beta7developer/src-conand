@@ -211,7 +211,7 @@ void dark_mode_toggle()
     }
 }
 
-// Windows Defender
+// this is Windows Defender, for now
 void windows_defender()
 {
     cout << "\nSCANNING SYSTEM FILES FOR THREATS..." << el;
@@ -331,6 +331,8 @@ void file_explorer()
     system("\n");
 }
 
+string error = R"(0x02)";
+
 void file_opener()
 {
     cout << "\nChoose which file to open:" << el;
@@ -352,6 +354,9 @@ void file_opener()
     if (filein == "ANDROID_OS.ISO")
     {
         cout << "Loading " << filein << " ..." << el;
+        delay(1000);
+        cout << error;
+        sleep.delay(1000);
         raise(SIGSEGV); // simulated crash
     }
     else if (filein == "WARNING_KNL.EXE")
@@ -375,11 +380,20 @@ void file_opener()
 void update()
 {
     cout << "Updating to build: 420" << endl;
+    if (update_available == false)
+    {
+        cerr << "There is no updates... yet." << el;
+    }
+    else
+    {
+        system("build420.exe");
+    }
 }
 
 // Main Menu
 int main()
 {
+    system("title main");
     system("clear");
     system("color 0F");
     string input;
@@ -392,11 +406,26 @@ int main()
             lock_screen();
         }
 
-        cout << "\nANDROID OS MENU" << el;
-        cout << "1. Task Manager\n2. Recycle Bin\n3. Firewall Settings\n4. File Search\n";
-        cout << "5. System Benchmark\n6. Bluetooth Manager\n7. Dark Mode Toggle\n";
-        cout << "8. Android Defender\n9. Task Scheduler\n10. Hibernate Mode\n";
-        cout << "11. Lock Screen\n12. Exit\n13. Device Manager\n14. Restart\n15. File Explorer\n16. File Opener\n17. Update\nSelect: ";
+        cout << "\nApps:" << el;
+        cout << "STILL IN DEVELOPMENT" << el;
+        cout << "1. Task Manager\n";
+        cout << "2. Recycle Bin\n";
+        cout << "3. Firewall Settings\n";
+        cout << "4. File Search\n";
+        cout << "5. System Benchmark\n";
+        cout << "6. Bluetooth Manager\n";
+        cout << "7. Dark Mode Toggle\n";
+        cout << "8. Android Defender\n";
+        cout << "9. Task Scheduler\n";
+        cout << "10. Hibernate Mode\n";
+        cout << "11. Lock Screen\n";
+        cout << "12. Exit\n";
+        cout << "13. Device Manager\n";
+        cout << "14. Restart\n";
+        cout << "15. File Explorer\n";
+        cout << "16. File Opener\n";
+        cout << "17. Update\n";
+        cout << "Select: ";
         getline(cin, input);
 
         if (input == "1")
@@ -468,6 +497,10 @@ int main()
         else if (input == "16")
         {
             file_opener();
+        }
+        else if (input == "17")
+        {
+            update();
         }
         else
         {
